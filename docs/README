@@ -1,0 +1,86 @@
+****************************************
+Syed Usman Zubair       0921526
+CIS 2500                Assignment 3
+Mar 13/15
+****************************************
+
+*************
+ Compilation
+*************
+
+The command used to compile the program using the existing makefile is:
+
+make
+
+*******
+ Usage
+*******
+
+The program is run by entering:
+./program <levelFile>
+
+When starting the program, it expects the level file to be entered as a commandline arguement. If the 
+file exists, it is assumed to be properly formatted and not flawed. User accept responsiblity for any
+errors cause by a corrupt level file.
+
+Hallways, will automatically be generated. They are designed to provide dead-ends, as well as paths
+from door-to-door.
+
+After the program finishes parsing, ncurses is started. The 6 rooms described in the level file are
+drawn on screen. The player starts where ever specified by in the file. The player can be moved using
+the WASD keys, for moving up, left, down or right respectively. The player cannot walk into walls, or
+monsters. 
+
+The player can pick up collectables such as equipment or potions. Any gold picked up will be
+counted, and displayed at the end, upon ending the game. If the player walks into a door, they can enter
+a hallway. If the player presses the 'q' key or walks into stairs, the game will end. The game will also
+end if the hero's health reaches zero.
+
+Monsters ('A', 'B', 'S', 'Z', 'T') can be seen on the screen. They have various patrol routes. If they 
+would step on an item, wall or door, they skip that move. If the monster and hero collide, a combat
+occurs, one dealing damage to the other. Sometimes two combats occur at once, if the hero walks on to
+the monster, then the monster walks on to the hero. The Aqauator lowers attack power instead of health,
+but the Hero's health is limited to a minimum of 1, so that the player can keep on killing monsters if
+they desire to. 
+
+*********
+ Testing
+*********
+
+The program has been run through the IFS system, and 0 errors were found in the final version.
+
+The program has been tested with various level files that have valid syntax. Note that, due to the
+essentially infinite number of potential level files, there are many possibilities not tested.
+
+Also, the error-handling capabilities have not been tested, since it has been declared the level files
+will not be in inappropriate formats.
+
+*******************
+ Known Limitations
+*******************
+
+The program may not work properly if improper files are entered. It may be able to handle some
+bad parts, but there is no guarantee. It has been assumed that there will be 6 valid lines, ending
+with new lines, and nothing more or less than that, as per assignment guidelines.
+
+Related to improper files, if numbers in the level file are greater than 6 digits long, the program
+will not work as expected. This is due to a limit of 6 digits being imposed on the sscanf statements
+in order to prevent crashes due to input data being to large. This issue should not be encountered
+anyways, as rooms are expected, and forced if necessary, to be 23x18 or smaller.
+
+Another small glitch is that if 2 combat instances occur in a single turn (such as the user walking
+on to the monster and then the monster walking on the user), the first one will be overwritten in
+the status bar. This means the user may not realize that 2 combats happened at once.
+
+************
+ References
+************
+
+J. Carvalho, "Print Rectangle Function", 2016.
+This was used after being modified, with permission, to print room walls.
+
+"Linux Programmer's Manual" (also known as man pages).
+This was used to help in use of functions such as strpbrk.
+
+Jacob Elliot
+Provided tips on character movement, collision detections, and hallways.
